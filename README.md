@@ -29,7 +29,7 @@ truffle test --network kaleido
 
 ## Important Details
 
-The test script uses `eth.sign()` method that is not universally supported, which can cause confusions when developing with Kaleido.
+The test script demonstrates the usage of `eth.sign()` method on an Ethereum blockchain node, in order to use the built-in wallet inside the node to sign a piece of data. This method is not supported identically across different Ethereum implementations, which can cause confusions when developing with Kaleido.
 
 `testrpc` and Ganache returns `00` or `01` for the V value portion of the signature. So `27` must be added in order to calculate the correct value.
 
