@@ -1,4 +1,4 @@
-const Web3 = require('web3');
+const HttpProvider = require('web3-providers-http');
 
 module.exports = {
   networks: {
@@ -9,9 +9,7 @@ module.exports = {
     },
 
     kaleido: {
-      provider: () => {
-        return new Web3.providers.HttpProvider(process.env.ETH_URL);
-      },
+      provider: new HttpProvider(process.env.ETH_URL),
       network_id: "*",
       gasPrice: 0
     }

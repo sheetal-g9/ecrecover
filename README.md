@@ -1,20 +1,50 @@
 # ecrecover
 Sample Solidity and node.js code demonstrating the trickery involved in ecrecover when testing against testrpc/Ganache vs. geth/Quorum nodes
 
+## Pre-reqs
+
+Node.js: https://nodejs.org/en/download/
+Truffle: https://www.trufflesuite.com/docs/truffle/getting-started/installation
+
 ## Run and Test
 
+First install the minimal dependencies and configure the target Ethereum node:
+
 ```
-npm i web3
+npm i
 export ETH_URL=<full URL of your Kaleido node like https://username:password@envId-nodeId-rpc.kaleido.io>
+```
 
-// to test against testrpc or Ganache using the default network
+To test against testrpc or Ganache using the default network
+
+```
 truffle test
+```
 
-// to test against the Kaleido network
+To test against a Kaleido network
+
+```
 truffle test --network kaleido
 ```
 
-Sample output:
+## Important Details
+
+The test script uses `eth.sign()` method that is not universally supported, which can cause confusions when developing with Kaleido.
+
+`testrpc` and Ganache returns `00` or `01` for the V value portion of the signature. So `27` must be added in order to calculate the correct value.
+
+Geth/Quorum both returns the V value according to the ecrecover technique, with 27 already added.
+
+| Protocol | `eth.sign()` supported?  | To calculate V value from returned signature |
+|---|---|---|
+| Geth | Yes | `web3.utils.toDecimal("0x" + sig.slice(130, 132))` |
+| Quorum | Yes | `web3.utils.toDecimal("0x" + sig.slice(130, 132))` |
+| Besu | No |  |
+| testrpc | Yes | `web3.utils.toDecimal("0x" + sig.slice(130, 132)) + 27` |
+| Ganache | Yes | `web3.utils.toDecimal("0x" + sig.slice(130, 132)) + 27` |
+
+
+## Sample output:
 
 ```
 Using network 'kaleido'.

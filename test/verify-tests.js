@@ -20,18 +20,17 @@ contract('Test', (accounts) => {
 
       let sig = await web3.eth.sign(docHash, accounts[0]);
       console.log(`Signature: ${sig}`);
-      sig = sig.slice(2);
 
-      let R = `0x${sig.slice(0, 64)}`
-      let S = `0x${sig.slice(64, 128)}`
+      let R = `0x${sig.slice(2, 66)}`
+      let S = `0x${sig.slice(66, 130)}`
       let V;
       if (chainId > 10000) {
         // not scientific, but Kaleido chain IDs tend to be a really large number
         console.log('Seems to be in a Kaleido network, V is already calculated');
-        V = `0x${sig.slice(128, 130)}`;
+        V = `0x${sig.slice(130, 132)}`;
       }  else {
         console.log('Seems to be in testrpc or Ganache, need to calculate V');
-        V = web3.utils.toDecimal(`0x${sig.slice(128, 130)}`)  + 27;
+        V = web3.utils.toDecimal(`0x${sig.slice(130, 132)}`)  + 27;
       }
 
       console.log(`V: ${V}, R: ${R}, S: ${S}`);
