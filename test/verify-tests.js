@@ -35,7 +35,7 @@ contract('Test', (accounts) => {
 
       console.log(`V: ${V}, R: ${R}, S: ${S}`);
 
-      let result = await test.verify(docHash, [V], [R], [S]);
+      let result = await test.verify(docHash, V, R, S);
       console.log(result);
 
       const blockNumber = result.receipt.blockNumber;

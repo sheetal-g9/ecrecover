@@ -1,0 +1,8 @@
+{
+    "name": "kaleido-ecrecover-sample",
+    "version": "0.0.1",
+    "description": "Sample code for performing ecrecover in Solidity when using Kaleido networks",
+    "dependencies": {
+        "web3-providers-http": "^1.2.5"
+    }
+}
