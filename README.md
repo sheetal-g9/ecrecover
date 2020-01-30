@@ -3,8 +3,8 @@ Sample Solidity and node.js code demonstrating the trickery involved in ecrecove
 
 ## Pre-reqs
 
-Node.js: https://nodejs.org/en/download/
-Truffle: https://www.trufflesuite.com/docs/truffle/getting-started/installation
+- Node.js: https://nodejs.org/en/download/
+- Truffle: https://www.trufflesuite.com/docs/truffle/getting-started/installation
 
 ## Run and Test
 
