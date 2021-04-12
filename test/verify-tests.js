@@ -13,8 +13,20 @@ contract('Test', (accounts) => {
     });
 
     it('returns proper address recovered from the signature', async () => {
-      let msg =  '0xfde74fc7c82251ce19ded6fa9357044e8a75b5bd5665626efa976b11776c8533';
-      let docHash = web3.utils.sha3(msg)
+      // let msg =  '0xfde74fc7c82251ce19ded6fa9357044e8a75b5bd5665626efa976b11776c8533';
+      let issuerAddress = accounts[0]
+      let recipientAddress = accounts[1]
+      let timestamp = Date.now()
+      let latitude = ""
+      let longitude = ""
+
+      let msg = String(issuerAddress).slice(2) + String(recipientAddress).slice(2) + timestamp + latitude + longitude
+
+      console.log(typeof(msg))
+      console.log("msg: ", msg)
+
+      let docHash = web3.utils.keccak256(msg)
+      console.log("msg: ", msg)
       console.log(`docHash:  ${docHash}`);
       console.log(`signing with account: ${accounts[0]}`);
 
@@ -35,8 +47,8 @@ contract('Test', (accounts) => {
 
       console.log(`V: ${V}, R: ${R}, S: ${S}`);
 
-      let result = await test.verify(docHash, V, R, S);
-      console.log(result);
+      let result = await test.verify(issuerAddress.slice(2), recipientAddress.slice(2), String(timestamp), latitude, longitude, V, R, S);
+      // console.log(result);
 
       const blockNumber = result.receipt.blockNumber;
 
